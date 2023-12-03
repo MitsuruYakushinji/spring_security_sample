@@ -18,6 +18,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// 認可の設定
 		http.authorizeRequests()
 			.antMatchers("/loginForm").permitAll() // loginFormは全ユーザーからのアクセスを許可している
+			.antMatchers("/admin").hasAuthority("ADMIN") // 管理者のみ/adminにアクセス可能
 			.anyRequest().authenticated(); // 許可した項目は以外は、認証を求める設定に
 		
 		// ログイン処理

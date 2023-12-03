@@ -34,13 +34,17 @@ public class LoginUser implements UserDetails {
 		return this.user.getEmail();
 	}
 	
-	// 以降は今回利用しないメソッド
-	
 	// ユーザーに付与された権限を返却
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return AuthorityUtils.NO_AUTHORITIES;
+		//ロールカラムの情報から認証ユーザのロールを設定する。
+		if(this.user.getRole().equals("管理者")) {
+			return AuthorityUtils.createAuthorityList("ADMIN", "GENERAL");
+		}
+		return AuthorityUtils.createAuthorityList("GENERAL");
 	}
+	
+	// 以降は今回利用しないメソッド
 
 	// アカウントの有効期限の状態を判定する
 	@Override
